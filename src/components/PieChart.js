@@ -1,31 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import DarkModeContext from '../context/DarkModeContext';
 
 const PieChart = ({ data }) => {
+  const { darkMode } = useContext(DarkModeContext);
   const chartContainer = useRef(null);
   const chartRef = useRef(null);
 
+  const getTotalSeconds = (timeString) => {
+    const [hours, minutes, seconds] = timeString.split(':').map(parseFloat);
+    return hours * 3600 + minutes * 60 + seconds;
+  };
+
   const totalTimeCalc = (data) => {
     const totalTimeInSeconds = data.reduce((total, item) => {
-      const timeParts = item.time.split(':');
-      return (
-        total +
-        parseInt(timeParts[0]) * 3600 +
-        parseInt(timeParts[1]) * 60 +
-        parseFloat(timeParts[2])
-      );
+      return total + getTotalSeconds(item.time);
     }, 0);
 
     const totalHours = Math.floor(totalTimeInSeconds / 3600);
     const totalMinutes = Math.floor((totalTimeInSeconds % 3600) / 60);
     const totalFormatted = `Total Time: ${totalHours}H ${totalMinutes}M`;
     return totalFormatted;
-  };
-
-  const getTimeFormatted = (timeString) => {
-    const [hours, minutes] = timeString.split(':').map(parseFloat);
-    const timeFormatted = `${hours}H ${minutes}M`;
-    return timeFormatted;
   };
 
   const cleanupChart = () => {
@@ -37,14 +32,14 @@ const PieChart = ({ data }) => {
   useEffect(() => {
     if (!data || !chartContainer.current) return;
 
-    cleanupChart(); // Clean up before rendering the new chart
+    cleanupChart(); 
 
     const totalFormatted = totalTimeCalc(data);
 
     const width = 500; 
     const height = 400; 
     const radius = Math.min(width, height) / 2;
-    const innerRadius = 150;
+    const innerRadius = 150; 
     const padding = 40;
 
     const svg = d3
@@ -57,7 +52,7 @@ const PieChart = ({ data }) => {
       .append('g')
       .attr('transform', `translate(${width / 2 + padding},${height / 2 + padding})`);
 
-    const pie = d3.pie().value((d) => parseFloat(d.time.split(':')[1])).sort(null);
+    const pie = d3.pie().value((d) => getTotalSeconds(d.time)).sort(null);
 
     pie.padAngle(0.052);
 
@@ -81,8 +76,8 @@ const PieChart = ({ data }) => {
           .transition()
           .duration(200)
           .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(radius + 15));
-        
-        svg.selectAll('.total-time-text').text(`${d.data.app.split('.')[2]} ${getTimeFormatted(d.data.time)}`);
+
+        svg.selectAll('.total-time-text').text(`${d.data.app.split('.')[2]} ${d.data.time}`);
       })
       .on('mouseout', function () {
         d3.select(this).transition().duration(200).attr('d', arc);
@@ -96,12 +91,13 @@ const PieChart = ({ data }) => {
       .attr('y', 0)
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
-      .text(totalFormatted);
+      .text(totalFormatted)
+      .style('fill', darkMode ? 'white' : 'black'); 
 
     chartRef.current = svg;
 
     return cleanupChart;
-  }, [data]);
+  }, [data, darkMode]); 
 
   useEffect(() => {
     return () => {
@@ -114,8 +110,6 @@ const PieChart = ({ data }) => {
       <style>{`
         .pie-chart-container {
           position: relative;
-          width: 100%;
-          height: 100vh;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -123,7 +117,7 @@ const PieChart = ({ data }) => {
 
         svg {
           width: 600px; // Adjusted SVG width
-          height: 400px; // Adjusted SVG height
+          height: 500px; // Adjusted SVG height
         }
       `}</style>
     </div>

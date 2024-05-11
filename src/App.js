@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import PieChart from './PieChart';
+import React, { useEffect, useState } from "react";
+import PieChart from "./components/PieChart";
+import Dashboard from "./components/Dashboard";
+import "./index.css";
+import DarkModeContext from "./context/DarkModeContext";
 
 function App() {
-  const [data, setAppData] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    fetchData(); // Initial fetch when component mounts
+    const matchMediaDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-    const interval = setInterval(() => {
-      fetchData(); // Fetch data every 1 minute
-    }, 6000); // 1 minute interval in milliseconds
+    setDarkMode(matchMediaDark.matches);
 
-    return () => clearInterval(interval); // Cleanup the interval on component unmount
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+    const handleChange = (e) => setDarkMode(e.matches);
+    matchMediaDark.addEventListener("change", handleChange);
 
-  const fetchData = () => {
-    fetch('http://localhost:8080/getAppData')
-      .then((resp) => {
-        if (!resp.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return resp.json();
-      })
-      .then((data) => setAppData(data))
-      .catch((err) => console.log(err));
-  };
+    return () => {
+      matchMediaDark.removeEventListener("change", handleChange);
+    };
+  }, []);
 
   return (
-    <div className="App">
-      <h1 style={{textAlign:'center'}}>Screen Time 🕑</h1>
-      {data ? <PieChart data={data} /> : <p>Loading data...</p>}
-    </div>
+    <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+      <Dashboard />
+    </DarkModeContext.Provider>
   );
 }
 

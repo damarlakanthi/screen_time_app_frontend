@@ -1,0 +1,20 @@
+.ant-tabs-tab-icon{
+
+    display: inline-block;
+    
+}
+
+.ant-tabs-tab .ant-tabs-tab-btn {
+    color: #fcae07 !important; 
+    font-weight: 700;
+ }
+ .ant-tabs .ant-tabs-ink-bar {
+    position: absolute;
+    background: #d9c164;
+    pointer-events: none;
+ }
+
+ .ant-badge{
+
+    color: #e4ba10;
+ }

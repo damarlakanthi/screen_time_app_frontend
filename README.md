@@ -1,12 +1,23 @@
-# Getting Started with Create React App
+# Getting Started with Screen time application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+First clone this repository before running application make sure you have node.js installed 
 
-## Available Scripts
+## Running the application 
 
-In the project directory, you can run:
+To Run backend go to cd windowChecker
 
+### `npm install`
+### `npm run start-server`
+### `npm run start-recodring`
+
+To Run front-end 
+
+cd screen_time_app
+
+### `npm install`
 ### `npm start`
+
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -14,57 +25,36 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Features of this application
 
-### `npm run build`
+Mainly this application focus on screen time and you can see your most used apps and a report based on your usage.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You will get notifications once you reach any application more than 2hrs of limit.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Process of this application
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Let the backend run and you can use whatever applications you want and it will capture the screen time of the applications
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Limitations of this application
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This application captures screen time for every minute and if you are on the same application it keeps on counting time so to see your screen time you need to switch the application and wait for the backend to capture that the application is changed and then you can view in webpage.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### OPenAI integration
 
-## Learn More
+This application is integrated with openAI to get personalized suggestions based on your screen time and the apps you use but to make it work you need to have an OpenAI api key I am not linking my API key in this project but you can get the API key I will be providing the resouces to do that.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Follow the below source to get OpenAI API Key.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Source: https://medium.com/gopenai/creating-chatbot-with-express-js-react-js-and-openai-api-fff4e260dc7e
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### Tech stack used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## React JS
+## Node.js for backend
+## WebSockets for notifications
+## Tailwind and Antd for UI
