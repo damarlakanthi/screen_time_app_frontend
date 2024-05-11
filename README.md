@@ -8,7 +8,7 @@ To Run backend go to cd windowChecker
 
 ### `npm install`
 ### `npm run start-server`
-### `npm run start-recodring`
+### `npm run start-recording`
 
 To Run front-end 
 
